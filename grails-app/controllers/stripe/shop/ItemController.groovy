@@ -11,6 +11,10 @@ class ItemController {
 
     GrailsApplication grailsApplication
 
+    List<Object> itemsParams
+    Map<String, Object> orderParams
+    Map<String, Object> orderPayParams
+
     def index() {
         [products: Product.list([active: true])]
     }
@@ -44,16 +48,24 @@ class ItemController {
         } else {
             publicKey = grailsApplication.config.get('stripe.production.public')
         }
-        Map<String, Object> orderParams = new HashMap<String, Object>()
+        itemsParams = new LinkedList<Object>()
+        def skus
+        (session.getAttribute('skus') as SKU[]).each {
+            skus = new HashMap<Object, Object>()
+            skus.put("type", "sku")
+            skus.put("parent", it.id)
+            itemsParams.add(skus)
+        }
+        orderParams = new HashMap<String, Object>()
         orderParams.put("currency", "eur")
-        orderParams.put("items", [["type": "sku", "parent": (session.getAttribute('skus') as SKU[]).first().id]])
+        orderParams.put("items", itemsParams)
         [order: Order.create(orderParams), publicKey: publicKey]
     }
 
     @Transactional
     doPay(String id) {
         Order order = Order.retrieve(id)
-        Map<String, Object> orderPayParams = new HashMap<String, Object>()
+        orderPayParams = new HashMap<String, Object>()
         orderPayParams.put("email", params.get('stripeEmail'))
         orderPayParams.put("source", params.get('stripeToken'))
         order.pay(orderPayParams)
