@@ -21,7 +21,6 @@
                 </div>
                 <div class="panel-footer">
                     <g:link controller="item" action="show" id="${it.id}" class="btn btn-primary"><g:message code="products.seeDetails"/></g:link>
-                    <a class="btn btn-info" href="#"><g:message code="products.addToCart"/></a>
                 </div>
             </div>
         </div>

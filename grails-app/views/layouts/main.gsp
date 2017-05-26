@@ -27,6 +27,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li><g:link controller="item" action="index"><g:message code="products"/></g:link></li>
+                    <li><g:link controller="item" action="cart"><g:message code="cart"/></g:link></li>
                 </ul>
             </div>
         </div>

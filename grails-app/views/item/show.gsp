@@ -21,15 +21,16 @@
                         <g:message code="products.choices"/>
                         <ul class="list-group">
                             <g:each in="${product.skus.data}">
-                                <li class="list-group-item">${it.price / 100} ${it.currency}</li>
+                                <li class="list-group-item">${it.price / 100} ${it.currency}
+                                    <g:link class="btn btn-info" controller="item"
+                                            action="addToCart"
+                                            id="${it.id}"><g:message
+                                            code="products.addToCart"/></g:link></li>
                             </g:each>
                         </ul>
                         ${product.description}
                     </div>
                 </div>
-            </div>
-            <div class="panel-footer">
-
             </div>
         </div>
     </div>
