@@ -11,6 +11,7 @@ class ItemController {
 
     GrailsApplication grailsApplication
 
+    ArrayList<SKU> cartSkus
     List<Object> itemsParams
     Map<String, Object> orderParams
     Map<String, Object> orderPayParams
@@ -34,7 +35,9 @@ class ItemController {
     @Transactional
     addToCart(String id) {
         if (session.getAttribute('skus') != null) {
-            ((SKU[]) session.getAttribute('skus')).collect().add(SKU.retrieve(id))
+            cartSkus = ((SKU[]) session.getAttribute('skus'))
+            cartSkus.add(SKU.retrieve(id))
+            session.setAttribute('skus', cartSkus)
         } else {
             session.setAttribute('skus', [SKU.retrieve(id)])
         }
