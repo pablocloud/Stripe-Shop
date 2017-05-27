@@ -27,7 +27,6 @@
                             data-name="${com.stripe.model.Account.retrieve().displayName}"
                             data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
                             data-locale="auto"
-                            data-zip-code="true"
                             data-currency="${order.currency}">
                     </script>
                 </g:form>
