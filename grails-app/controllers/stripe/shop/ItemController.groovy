@@ -1,5 +1,6 @@
 package stripe.shop
 
+import com.stripe.model.Account
 import com.stripe.model.Order
 import com.stripe.model.Product
 import com.stripe.model.SKU
@@ -77,6 +78,17 @@ class ItemController {
 
     def payed(String id) {
         [order: Order.retrieve(id)]
+    }
+
+    @Transactional
+    doSendPayedEmail(String id) {
+        Order order = Order.retrieve(id)
+        sendMail {
+            from Account.retrieve().email
+            subject order.id
+            html view: '/mails/order', model: [order: order]
+        }
+        redirect controller: 'item', action: 'payed', id: order.id
     }
 
 }

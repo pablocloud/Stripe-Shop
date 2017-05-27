@@ -7,6 +7,11 @@ stripe:
         private:
 ---
 grails:
+    mail:
+        host:
+        port:
+        username:
+        password:
     profile: web
     codegen:
         defaultPackage: stripe.shop
