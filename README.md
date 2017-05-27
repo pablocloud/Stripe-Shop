@@ -12,7 +12,7 @@
 
 ##### Configuration :
 
-You just need to setup you api keys in application.yml
+You need to setup your data in application.yml
 
 Keys : 
 
@@ -23,3 +23,11 @@ Keys :
         production:
             public:
             private:
+            
+Email settings :
+
+    mail:
+        host:
+        port:
+        username:
+        password:
