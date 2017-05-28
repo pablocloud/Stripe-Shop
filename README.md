@@ -10,6 +10,11 @@
 - Base checkout
 - Base payment and payed order display
 
+##### TODO :
+
+- Pretty design
+- Make the web Async
+
 ##### Configuration :
 
 You need to setup your data in application.yml
