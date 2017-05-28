@@ -1,4 +1,4 @@
-# Stripe-Shop
+# Stripe-Shop (Grails APP)
 
 ### Shop system using Stripe as backend
 
@@ -12,6 +12,8 @@
 
 ##### TODO :
 
+- Order status check
+- User panel
 - Pretty design
 - Make the web Async
 
