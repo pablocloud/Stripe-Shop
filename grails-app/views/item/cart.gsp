@@ -16,7 +16,10 @@
                         <g:if test="${items.size() > 0}">
                             <ul class="list-group">
                                 <g:each in="${items}">
-                                    <li class="list-group-item">${com.stripe.model.Product.retrieve(it.product).name} - ${it.price / 100} ${it.currency}</li>
+                                    <li class="list-group-item">
+                                        ${com.stripe.model.Product.retrieve(it.product).name} - ${it.price / 100} ${it.currency}
+                                        <g:link class="btn btn-danger" controller="item" action="removeFromCart" id="${it.id}"><g:message code="cart.remove"/></g:link>
+                                    </li>
                                 </g:each>
                             </ul>
                         </g:if>

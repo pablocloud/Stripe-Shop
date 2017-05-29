@@ -42,7 +42,20 @@ class ItemController {
         } else {
             session.setAttribute('skus', [SKU.retrieve(id)])
         }
-        redirect controller: 'item', action: 'index'
+        redirect controller: 'item', action: 'show', id: Product.retrieve(SKU.retrieve(id).product).id, params: [name: Product.retrieve(SKU.retrieve(id).product).name]
+    }
+
+    @Transactional
+    removeFromCart(String id) {
+        cartSkus = ((SKU[]) session.getAttribute('skus'))
+        for (SKU sku : cartSkus) {
+            if (sku.id == id) {
+                cartSkus.remove(sku)
+                break
+            }
+        }
+        session.setAttribute('skus', cartSkus)
+        redirect controller: 'item', action: 'cart'
     }
 
     def checkout() {
