@@ -2,6 +2,9 @@
 
 ### Shop system using Stripe as backend
 
+All the data is stored in Stripe using Stripe's API, no data is stored in
+the Grails-App.
+
 ##### Actual features : 
 
 - Base app, full request/full response
