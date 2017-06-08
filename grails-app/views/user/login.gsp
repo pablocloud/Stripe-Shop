@@ -16,11 +16,11 @@
                     </div>
                     <div class="form-group">
                         <label for="password"><g:message code="users.email"/></label>
-                        <input type="password" id="password" name="password" required class="form-control"/>
+                        <input type="password" id="password" name="password" class="form-control"/>
                     </div>
                 </div>
                 <div class="panel-footer">
-                    <input type="submit" value="<g:message code="users.login"/>"/>
+                    <input type="submit" value="<g:message code="users.login"/>" class="btn btn-default"/>
                 </div>
             </g:form>
         </div>
