@@ -1,6 +1,7 @@
 package stripe.shop
 
 import com.stripe.model.Account
+import com.stripe.model.Customer
 import com.stripe.model.Order
 import com.stripe.model.Product
 import com.stripe.model.SKU
@@ -16,6 +17,7 @@ class ItemController {
     List<Object> itemsParams
     Map<String, Object> orderParams
     Map<String, Object> orderPayParams
+    Map<String, Object> customerParams
 
     def index() {
         [products: Product.list([active: true])]
@@ -84,8 +86,30 @@ class ItemController {
         Order order = Order.retrieve(id)
         orderPayParams = new HashMap<String, Object>()
         orderPayParams.put("email", params.get('stripeEmail'))
-        orderPayParams.put("source", params.get('stripeToken'))
+        User buyingUser
+        User userControl = User.findByEmail(params.get('stripeEmail') as String)
+        if (userControl == null) {
+            buyingUser = new User(email: params.get('stripeEmail'), password: ''.encodeAsMD5().toString(), stripeId: '1', accessLevel: 0)
+            buyingUser.save(flush: true)
+        } else {
+            buyingUser = User.findByEmail(params.get('stripeEmail') as String)
+            buyingUser.save(flush: true)
+        }
+        Customer customer
+        if (buyingUser.stripeId == null || buyingUser.stripeId.length() <= 1) {
+            customerParams = new HashMap<String, Object>()
+            customerParams.put('email', order.email)
+            customerParams.put('source', params.get('stripeToken'))
+            customer = Customer.create(customerParams)
+            buyingUser.stripeId = customer.id
+            buyingUser.save(flush: true)
+        } else {
+            customer = Customer.retrieve(buyingUser.stripeId)
+        }
+        orderPayParams.put('customer', buyingUser.stripeId)
+        orderPayParams.put("source", customer.defaultSource)
         order.pay(orderPayParams)
+        session.removeAttribute('skus')
         redirect controller: 'item', action: 'payed', id: order.id
     }
 

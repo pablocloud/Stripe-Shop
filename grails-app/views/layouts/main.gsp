@@ -35,6 +35,8 @@
                             </g:if>
                         </g:link>
                     </li>
+                    <li><g:link controller="user" action="login"><g:message code="users.login"/></g:link></li>
+                    <li><g:link controller="user" action="register"><g:message code="users.register"/></g:link></li>
                 </ul>
             </div>
         </div>
