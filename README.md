@@ -12,11 +12,11 @@ the Grails-App.
 - Base cart
 - Base checkout
 - Base payment and payed order display
+- Users can now login/register
+- Users can now access their panel and see their orders
 
 ##### TODO :
 
-- Order status check
-- User panel
 - Pretty design
 - Make the web Async
 
