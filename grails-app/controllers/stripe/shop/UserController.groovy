@@ -30,7 +30,20 @@ class UserController {
 
     @Transactional
     doRegister(User user) {
-
+        if (User.findByEmail(user.email) != null) {
+            User registeredUser = User.findByEmail(user.email)
+            registeredUser.password = user.password.encodeAsMD5().toString()
+            registeredUser.save()
+            session.setAttribute('user', registeredUser)
+            redirect controller: 'user', action: 'panel', id: registeredUser.id
+        } else {
+            user.password = user.password.encodeAsMD5().toString()
+            user.stripeId = '1'
+            user.accessLevel = 0
+            user.save()
+            session.setAttribute('user', user)
+            redirect controller: 'user', action: 'panel', id: user.id
+        }
     }
 
     def panel(User user) {
