@@ -19,7 +19,7 @@
                 <h3><g:message code="checkout.total"/> : ${order.amount / 100} ${order.currency}</h3>
             </div>
             <div class="panel-footer">
-                <g:link controller="item" action="doSendPayedEmail" id="${order.id}" class="btn btn-primary"><g:message
+                <g:link controller="item" action="doSendPaidEmail" id="${order.id}" class="btn btn-primary"><g:message
                         code="checkout.sendMail"/></g:link>
             </div>
         </div>

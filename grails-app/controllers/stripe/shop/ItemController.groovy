@@ -113,12 +113,12 @@ class ItemController {
         redirect controller: 'item', action: 'payed', id: order.id
     }
 
-    def payed(String id) {
+    def paid(String id) {
         [order: Order.retrieve(id)]
     }
 
     @Transactional
-    doSendPayedEmail(String id) {
+    doSendPaidEmail(String id) {
         Order order = Order.retrieve(id)
         sendMail {
             from Account.retrieve().email
